@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './style.css';
+import WeatherSearchForm from './WeatherSearchForm/WeatherSearchForm';
 
 class WeatherContainer extends Component {
         constructor(){
@@ -18,7 +18,7 @@ class WeatherContainer extends Component {
         const parsedResult = await result.json();
         this.setState({
             weather: parsedResult.results.filter(weather => weather.at_location !== 'unkown')
-        })
+        }) 
     }
     render(){
         const currentWeather = this.state.weather.map((weather) => {
@@ -28,7 +28,8 @@ class WeatherContainer extends Component {
            </div> )
         })
         return <div>
-            <WeathersearchForm findWeather={this.findWeather}></WeathersearchForm>
+            <WeatherSearchForm findWeather={this.findWeather}></WeatherSearchForm>
+            {currentWeather}
         </div>
     }
 
