@@ -12,6 +12,7 @@ class App extends Component {
     }
   }
   handleLogin = (formData) => {
+    console.log(formData);
     this.setState({
       loggedIn: true,
       username: formData.username
@@ -20,7 +21,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>Welcome to secret sharer</h1>
+        <h1>Welcome to The weather channel</h1>
         {
           this.state.loggedIn === true ?
             <WeatherContainer username={this.state.username}></WeatherContainer>

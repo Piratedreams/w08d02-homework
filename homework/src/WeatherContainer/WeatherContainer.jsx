@@ -5,7 +5,8 @@ class WeatherContainer extends Component {
         constructor(){
             super();
             this.state= {
-                weather: []
+                weather: [],
+                
             }
         }
     
@@ -13,18 +14,26 @@ class WeatherContainer extends Component {
         this.findWeather({ search: "" });
     }
     findWeather = async (formData) => {
-        const searchAPI = `api.openweathermap.org/data/2.5/weather?q={city name}&APPID=14d264e3547bc62e11a404ef26d22109${formData.search}`
-        const result = await fetch(searchAPI);
-        const parsedResult = await result.json();
-        this.setState({
-            weather: parsedResult.results.filter(weather => weather.at_location !== 'unkown')
-        }) 
+        const searchURL = `https://api.openweathermap.org/data/2.5/weather?q=${formData.search}&APPID=14d264e3547bc62e11a404ef26d22109`
+        fetch(searchURL)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data);
+                // this.setState({
+                //     cityName: data.name,
+                //     main: data.main,
+                //     weather: data.weather
+                // })
+            })
+            .catch((e) => console.log(e))
+
+    
     }
     render(){
         const currentWeather = this.state.weather.map((weather) => {
             return (<div key={weather.at_location}>
             <h5> In {weather.at_location}</h5>
-            <p> It is {weather.cloudy} at {weather.temp} degrees outside today. </p>
+            <p> It is {weather.main} at {weather.temp} degrees outside today. </p>
            </div> )
         })
         return <div>
