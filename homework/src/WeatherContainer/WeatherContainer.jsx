@@ -5,7 +5,9 @@ class WeatherContainer extends Component {
         constructor(){
             super();
             this.state= {
+               
                 weather: [],
+                wind: {},
                 
             }
         }
@@ -15,31 +17,30 @@ class WeatherContainer extends Component {
     }
     findWeather = async (formData) => {
         const searchURL = `https://api.openweathermap.org/data/2.5/weather?q=${formData.search}&APPID=14d264e3547bc62e11a404ef26d22109`
-        fetch(searchURL)
+         await fetch(searchURL)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data);
-                // this.setState({
-                //     cityName: data.name,
-                //     main: data.main,
-                //     weather: data.weather
-                // })
+                this.setState({
+                    weather: data.main,
+                    temp: data.main.temp,
+                    wind: data.wind
+                   
+                })
             })
             .catch((e) => console.log(e))
 
     
     }
     render(){
-        const currentWeather = this.state.weather.map((weather) => {
-            return (<div key={weather.at_location}>
-            <h5> In {weather.at_location}</h5>
-            <p> It is {weather.main} at {weather.temp} degrees outside today. </p>
-           </div> )
-        })
-        return <div>
+        console.log(this.state);
+        
+    
+       
+        return( <div>
             <WeatherSearchForm findWeather={this.findWeather}></WeatherSearchForm>
-            {currentWeather}
-        </div>
+            <p> It is {this.state.weather.temp} Degrees with {this.state.weather.humidity} Humidity accompanied by {this.state.wind.speed} mph windspeed.</p>
+        </div> )
     }
 
 
