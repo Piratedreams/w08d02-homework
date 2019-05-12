@@ -16,7 +16,7 @@ class WeatherContainer extends Component {
         this.findWeather({ search: "" });
     }
     findWeather = async (formData) => {
-        const searchURL = `https://api.openweathermap.org/data/2.5/weather?q=${formData.search}&APPID=14d264e3547bc62e11a404ef26d22109`
+        const searchURL = `https://api.openweathermap.org/data/2.5/weather?q=${formData.search}&units=imperial&APPID=14d264e3547bc62e11a404ef26d22109`
          await fetch(searchURL)
             .then((response) => response.json())
             .then((data) => {
@@ -39,7 +39,7 @@ class WeatherContainer extends Component {
        
         return( <div>
             <WeatherSearchForm findWeather={this.findWeather}></WeatherSearchForm>
-            <p> It is {this.state.weather.temp} Degrees with {this.state.weather.humidity} Humidity accompanied by {this.state.wind.speed} mph windspeed.</p>
+            <p> It is {this.state.weather.temp} Degrees with {this.state.weather.humidity}% Humidity accompanied by {this.state.wind.speed} mph windspeed.</p>
         </div> )
     }
 
